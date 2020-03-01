@@ -5,7 +5,6 @@ import { Injectable } from "@angular/core";
 import API, { graphqlOperation } from "@aws-amplify/api";
 import { GraphQLResult } from "@aws-amplify/api/lib/types";
 import * as Observable from "zen-observable";
-import { User } from './user';
 
 export type CreateTodoInput = {
   id?: string | null;
@@ -159,8 +158,8 @@ export type OnDeleteTodoSubscription = {
   providedIn: "root"
 })
 export class APIService {
-  async CreateUser(
-    input: User,
+  async CreateTodo(
+    input: CreateTodoInput,
     condition?: ModelTodoConditionInput
   ): Promise<CreateTodoMutation> {
     const statement = `mutation CreateTodo($input: CreateTodoInput!, $condition: ModelTodoConditionInput) {

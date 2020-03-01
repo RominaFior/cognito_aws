@@ -35,5 +35,29 @@
 				}
 			}
 		}
+	},
+	"function": {
+		"functest": {
+			"service": "Lambda",
+			"providerPlugin": "awscloudformation",
+			"build": true,
+			"dependsOn": [
+				{
+					"category": "storage",
+					"resourceName": "testStorage",
+					"attributes": [
+						"BucketName"
+					]
+				},
+				{
+					"category": "api",
+					"resourceName": "test",
+					"attributes": [
+						"GraphQLAPIIdOutput",
+						"GraphQLAPIEndpointOutput"
+					]
+				}
+			]
+		}
 	}
 }

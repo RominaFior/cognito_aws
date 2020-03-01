@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { APIService } from '../API.service';
-import { User } from '../user';
-import { Auth } from 'aws-amplify';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 @Component({
   selector: 'app-profile',
@@ -11,26 +10,30 @@ import { Auth } from 'aws-amplify';
 export class ProfileComponent implements OnInit {
   userId: string;
   userName: string;
-  user = new User('', '', '', '', '', '');
-  constructor(private api: APIService) { }
+  user: any;
+  data: any;
+  error: any;
+  config
+  /*  let data = data(){ return info: ''} */
+  constructor(private api: APIService, private http: HttpClient) { }
   ngOnInit() {
-    Auth.currentAuthenticatedUser({
-      bypassCache: false
-    }).then(async user => {
-      this.userId = user.attributes.sub;
-      this.userName = user.username;
-    })
-      .catch(err => console.log(err));
+    if (localStorage.getItem('currentUserToken')) {
+      const jwt = localStorage.getItem('currentUserToken')
+      const httpOptions = {
+        headers: new HttpHeaders({
+          'Content-Type': 'application/json',
+          'Authorization': jwt
+        })
+      };
+
+      this.http.get('https://nlxhp3fjli.execute-api.eu-west-1.amazonaws.com/v1/m', httpOptions)
+        .subscribe(data => this.data = data,
+          error => this.error = error
+        )
+    }
+
   }
 
-  async updateProfile() {
-    const user = {
-      id: this.userId,
-      username: this.user.firstName + '_' + this.user.lastName,
-      firstName: this.user.firstName,
-      lastName: this.user.lastName,
-      bio: this.user.aboutMe
-    }
-    await this.api.CreateUser(user);
-  }
+
+
 }

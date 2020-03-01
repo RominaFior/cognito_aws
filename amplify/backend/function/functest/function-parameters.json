@@ -1,0 +1,19 @@
+{
+    "permissions": {
+        "storage": {
+            "testStorage": [
+                "create",
+                "read",
+                "update",
+                "delete"
+            ]
+        },
+        "api": {
+            "test": [
+                "read",
+                "update",
+                "delete"
+            ]
+        }
+    }
+}
