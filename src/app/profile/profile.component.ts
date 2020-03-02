@@ -13,6 +13,8 @@ export class ProfileComponent implements OnInit {
   user: any;
   data: any;
   error: any;
+  raspi;
+  tychePhoto;
   config
   /*  let data = data(){ return info: ''} */
   constructor(private api: APIService, private http: HttpClient) { }
@@ -31,9 +33,12 @@ export class ProfileComponent implements OnInit {
           error => this.error = error
         )
     }
+    this.http.get('https://test-tychetools-test.s3-eu-west-1.amazonaws.com/testFolderS3/example.json')
+      .subscribe(raspi => this.raspi = raspi,
+        error => this.error = error)
 
+    this.tychePhoto = 'https://web-tychitools-static.s3-eu-west-1.amazonaws.com/logoAPP.538034c00faf5eee17e9.png'
   }
 
-
-
 }
+

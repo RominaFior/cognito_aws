@@ -1,7 +1,15 @@
 <app-navbar></app-navbar>
 <div class="container">
   <h1>Server</h1>
+  <h3>Api gateway</h3>
   {{data | json}}
+  <br>
+  <h3>Almacenado en S3</h3>
+  {{raspi | json}}
+  <h3>S3 web static</h3>
+  <div class="container">
+    <img src={{tychePhoto}}>
+  </div>
 </div>
 <!-- <main class="text-center my-5">
   <div class="container">
